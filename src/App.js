@@ -2,8 +2,6 @@ import './App.css';
 import { useState,useEffect} from 'react';
 import { cleanup } from '@testing-library/react';
 function App() {
-  
-
 const clearEntireExpression=()=>{
 setValue("")
 setResults("")
@@ -11,13 +9,17 @@ setResults("")
 const deleteExpression=()=>{
   setValue(value.slice(0,-1))
 }
-
 const compute= ()=>{
 try {
 const res = eval(value)
-setResults(()=>res)
+console.log(typeof(res))
+if(res ===Infinity){
+  setResults(()=>results+'Arithmetic Error')
+}else{
+  setResults(()=>res)
+}
 } catch (error) {
- 
+setResults(results+'0 prefix Error')
 }  
 }
 
@@ -48,7 +50,7 @@ const[results,setResults]=useState("")
     <button onClick={(e)=>setValue(value + e.target.value)} value="-">-</button>
     <button onClick={(e)=>setValue(value + e.target.value)} value=".">.</button>
     <button onClick={(e)=>setValue(value + e.target.value)} value="0">0</button>
-    <button className='span-two' onClick={()=>compute()} >=</button>
+    <button className='span-two' onClick={compute} >=</button>
 
 
 
